@@ -7,7 +7,9 @@ BusyFlights is a flights search solution which aggregates flight results initial
 
 **What is required:**
 
-Use this GitHub repository as a base to implement the Busy Flights service that should produce an aggregated result from both CrazyAir and ToughJet.
+Use this GitHub repository as a base to implement the Busy Flights service that should produce an aggregated result 
+from both CrazyAir and ToughJet.
+
 The result should be a JSON response which contains a list of flights ordered by fare which has the following attributes:
 
 **Busy Flights API**
