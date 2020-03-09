@@ -22,10 +22,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({ InputIncorrectException.class })
-    public ResponseEntity<Object>  InCorrectInputException(
+    public ResponseEntity<Object>  handleIncorrectInputException(
             Exception ex, WebRequest request) {
         return new ResponseEntity<Object>(
                 ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
+
+    }
+    @ExceptionHandler({ NoDataException.class })
+    public ResponseEntity<Object>  handleNoDataException(
+            Exception ex, WebRequest request) {
+        return new ResponseEntity<Object>(
+                ex.getMessage(), new HttpHeaders(), HttpStatus.NO_CONTENT);
 
     }
 

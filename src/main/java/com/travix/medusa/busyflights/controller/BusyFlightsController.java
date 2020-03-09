@@ -3,12 +3,15 @@ package com.travix.medusa.busyflights.controller;
 import com.travix.medusa.busyflights.domain.Request;
 import com.travix.medusa.busyflights.domain.BusyFlightsResponse;
 import com.travix.medusa.busyflights.exception.InputIncorrectException;
+import com.travix.medusa.busyflights.exception.NoDataException;
 import com.travix.medusa.busyflights.service.BusyFlightServ;
 import com.travix.medusa.busyflights.utility.InputChecking;
 import com.travix.medusa.busyflights.utility.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -25,7 +28,7 @@ public class BusyFlightsController {
         return null;
     }
 
-    @GetMapping("/flight")
+    @GetMapping(path = "/flight",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<BusyFlightsResponse> getFlights(@RequestParam String origin, @RequestParam String destination
             , @RequestParam String departureDate, @RequestParam String returnDate
             , @RequestParam int numberOfPassengers) throws Exception {
@@ -34,7 +37,9 @@ public class BusyFlightsController {
 
         try {
             if(InputChecking.isRequestValid(request)) {
-                return service.findByParam(request);
+                List<BusyFlightsResponse> result=service.findByParam(request);
+                if(result.size()==0)
+                    throw new NoDataException("No data found");
             }
         } catch (InputIncorrectException e) {
             throw  e;//to be handled by global handler

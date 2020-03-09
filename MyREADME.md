@@ -16,11 +16,12 @@ separating project to 3 micro services
 -
 -
 -
+
 then using spring cloud projects if it needs to be extended in future: 
 - a service discovery project (like ...)
 - a central config center
 - a central log server
-- ...
+- have two or more of each microservices and using a load balancer like ... for decreasing latency and increasinf availability
 
 and to support CI/CD better, having:
 - a docker file for each project
