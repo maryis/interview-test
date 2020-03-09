@@ -23,6 +23,16 @@ public class CrazyAirResponse implements Response{
     private String departureDate;//ISO_LOCAL_DATE_TIME  '2011-12-03T10:15:30'
     private String arrivalDate;//ISO_LOCAL_DATE_TIME
 
+    public CrazyAirResponse(String airline, double price, String cabinclass, String departureAirportCode, String destinationAirportCode, String departureDate, String arrivalDate) {
+        this.airline = airline;
+        this.price = price;
+        this.cabinclass = cabinclass;
+        this.departureAirportCode = departureAirportCode;
+        this.destinationAirportCode = destinationAirportCode;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+    }
+
     @Override
     public void printResponse() {
 

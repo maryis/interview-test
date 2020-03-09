@@ -32,14 +32,14 @@ public class ToughJetController {
     }
 
     @DeleteMapping("/flights/{id}")
-    public ToughJetResponse delFlightById(@PathVariable int id) {
+    public ToughJetResponse deleteFlightById(@PathVariable int id) {
 
         service.delete(id);
         return null;
     }
 
     @PostMapping("/flights/")
-    public ToughJetResponse delFlightById(@RequestBody ToughJetResponse entity) {
+    public ToughJetResponse saveFlight(@RequestBody ToughJetResponse entity) {
 
         service.save(entity);
         return null;

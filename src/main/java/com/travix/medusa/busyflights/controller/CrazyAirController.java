@@ -26,12 +26,28 @@ public class CrazyAirController {
 
         return service.findAll();
     }
-    @GetMapping("/time/{time}")
-    public Instant getTime(@PathVariable String time){
 
-        DateTimeFormatter f = DateTimeFormatter.ISO_LOCAL_TIME;
-        return Instant.from(f.parse(time));
+
+    @GetMapping("/flights/{id}")
+    public CrazyAirResponse getFlightById(@PathVariable int id) {
+
+        return service.findById(id);
     }
+
+    @DeleteMapping("/flights/{id}")
+    public CrazyAirResponse deleteFlightById(@PathVariable int id) {
+
+        service.delete(id);
+        return null;
+    }
+
+    @PostMapping("/flights/")
+    public ToughJetResponse saveFlight(@RequestBody ToughJetResponse entity) {
+
+        service.save(entity);
+        return null;
+    }
+
     @GetMapping("/flight")
     public List<CrazyAirResponse> getFlights(@RequestParam String origin, @RequestParam String destination
             , @RequestParam String departureDate, @RequestParam String returnDate

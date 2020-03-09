@@ -15,7 +15,7 @@ public interface FlightService {
 
     public Response findById(int i);
 
-    public Response saveFlight(Response response);
+    public Response save(Response response);
 
     public void delete(int i);
 

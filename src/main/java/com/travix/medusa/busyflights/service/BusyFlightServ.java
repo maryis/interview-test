@@ -18,6 +18,7 @@ import java.util.List;
 public class BusyFlightServ  {
 
 
+
     @Autowired
     RestTemplate restTemplate;
 
@@ -33,46 +34,30 @@ public class BusyFlightServ  {
     @Value("${app.api.username}")
     private String username;
 
-    @Override
-    public List<? extends Response> findAll() {
-        return null;
-    }
+    public List<BusyFlightsResponse> findByParam(Request request) {
 
-    @Override
-    public List<Response> findByParam(Request request) {
+        List<BusyFlightsResponse> busyFlightsEntities=new ArrayList<>();
+        List<ToughJetResponse> toughJetResponses= findToughByParam(request);
+        List<CrazyAirResponse> crazyAirResponses= findCrazyByParam(request);
 
-        List<Response> busyFlightsEntities = new ArrayList<>();
-        List<ToughJetResponse> toughJetResponses = findToughByParam(request);
-        List<CrazyAirResponse> crazyAirResponses = findCrazyByParam(request);
-
-        for (ToughJetResponse entity : toughJetResponses) {
+        for(ToughJetResponse entity: toughJetResponses){
             busyFlightsEntities.add(Mapper.mapToughToBusy(entity));
         }
-        for (CrazyAirResponse entity1 : crazyAirResponses) {
+        for(CrazyAirResponse entity1: crazyAirResponses){
             busyFlightsEntities.add(Mapper.mapCrazyToBusy(entity1));
         }
+        //sort
 
-        busyFlightsEntities.sort((o1, o2) -> {
-            return (int) (((BusyFlightsResponse) o1).getFare() - ((BusyFlightsResponse) o1).getFare());
+        busyFlightsEntities.sort(new Comparator<BusyFlightsResponse>() {
+            @Override
+            public int compare(BusyFlightsResponse o1, BusyFlightsResponse o2) {
+                return (int) (o1.getFare()-o2.getFare());
+            }
         });
 
         return busyFlightsEntities;
     }
 
-    @Override
-    public Response findById(int i) {
-        return null;
-    }
-
-    @Override
-    public Response saveFlight(Response response) {
-        return null;
-    }
-
-    @Override
-    public void delete(int i) {
-
-    }
 
     public List<ToughJetResponse> findToughByParam(Request request) {
 
@@ -94,8 +79,7 @@ public class BusyFlightServ  {
                 builder.toUriString(),
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<List<ToughJetResponse>>() {
-                });
+                new ParameterizedTypeReference<List<ToughJetResponse>>(){});
 
         return responseEntity.getBody();
     }
@@ -120,8 +104,7 @@ public class BusyFlightServ  {
                 builder.toUriString(),
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<List<CrazyAirResponse>>() {
-                });
+                new ParameterizedTypeReference<List<CrazyAirResponse>>(){});
 
         return responseEntity.getBody();
     }

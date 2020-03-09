@@ -25,6 +25,17 @@ public class BusyFlightsResponse implements Response {
     private String departureDate;//ISO_LOCAL_DATE  '2011-12-03'
     private String arrivalDate;//ISO_LOCAL_DATE
 
+    public BusyFlightsResponse(String airline, String supplier, double fare, String cabinclass, String departureAirportCode, String destinationAirportCode, String departureDate, String arrivalDate) {
+        this.airline = airline;
+        this.supplier = supplier;
+        this.fare = fare;
+        this.cabinclass = cabinclass;
+        this.departureAirportCode = departureAirportCode;
+        this.destinationAirportCode = destinationAirportCode;
+        this.departureDate = departureDate;
+        this.arrivalDate = arrivalDate;
+    }
+
     @Override
     public void printResponse() {
 

@@ -39,7 +39,7 @@ public class CrazyAirServ implements FlightService {
     }
 
     @Override
-    public Response saveFlight(Response response) {
+    public Response save(Response response) {
         return null;
     }
 
