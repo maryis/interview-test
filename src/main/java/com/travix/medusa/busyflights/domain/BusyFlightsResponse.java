@@ -11,11 +11,10 @@ import org.springframework.stereotype.Component;
 @Setter
 @Getter
 @NoArgsConstructor
-@RequiredArgsConstructor
 
 @Component
 @Scope("prototype")
-public class BusyFlightsResponse {
+public class BusyFlightsResponse implements Response {
 
     private String airline;
     private String supplier;
@@ -25,4 +24,11 @@ public class BusyFlightsResponse {
     private String destinationAirportCode;
     private String departureDate;//ISO_LOCAL_DATE  '2011-12-03'
     private String arrivalDate;//ISO_LOCAL_DATE
+
+    @Override
+    public void printResponse() {
+
+    }
+
+
 }

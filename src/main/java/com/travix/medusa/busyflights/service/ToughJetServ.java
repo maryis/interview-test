@@ -1,6 +1,7 @@
 package com.travix.medusa.busyflights.service;
 
 import com.travix.medusa.busyflights.domain.Request;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.repository.ToughJetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ToughJetServ {
+public class ToughJetServ implements FlightService {
 
     @Autowired
     ToughJetRepo repo;//comment static reason
@@ -37,9 +38,13 @@ public class ToughJetServ {
         return repo.findById(i);
     }
 
+    @Override
+    public Response saveFlight(Response response) {
+        return null;
+    }
 
-    public ToughJetResponse save(ToughJetResponse toughJetResponse) {
-        return repo.save(toughJetResponse);
+    public ToughJetResponse saveFlight(ToughJetResponse response) {
+        return repo.save(response);
     }
 
     public void delete(int i) {

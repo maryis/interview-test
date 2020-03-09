@@ -1,13 +1,10 @@
 package com.travix.medusa.busyflights.utility;
 
-import com.travix.medusa.busyflights.domain.Request;
-import com.travix.medusa.busyflights.domain.BusyFlightsResponse;
-import com.travix.medusa.busyflights.domain.CrazyAirResponse;
-import com.travix.medusa.busyflights.domain.ToughJetResponse;
+import com.travix.medusa.busyflights.domain.*;
 
 public class Mapper {
 
-    public static BusyFlightsResponse mapToughToBusy(ToughJetResponse toughJetResponse){
+    public static Response mapToughToBusy(ToughJetResponse toughJetResponse){
         BusyFlightsResponse busyFlightsResponse =new BusyFlightsResponse();
         busyFlightsResponse.setAirline(toughJetResponse.getCarrier());
         busyFlightsResponse.setArrivalDate(toughJetResponse.getInboundDateTime().substring(11,19));
@@ -21,7 +18,7 @@ public class Mapper {
         return busyFlightsResponse;
     }
 
-    public static BusyFlightsResponse mapCrazyToBusy(CrazyAirResponse crazyAirResponse){
+    public static Response mapCrazyToBusy(CrazyAirResponse crazyAirResponse){
         BusyFlightsResponse busyFlightsResponse =new BusyFlightsResponse();
         busyFlightsResponse.setAirline(crazyAirResponse.getAirline());
         busyFlightsResponse.setArrivalDate(crazyAirResponse.getArrivalDate().substring(11));

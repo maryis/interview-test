@@ -11,11 +11,10 @@ import org.springframework.stereotype.Component;
 @Setter
 @Getter
 @NoArgsConstructor
-@RequiredArgsConstructor
-
 
 @Component
-@Scope("prototype")public class ToughJetResponse {
+@Scope("prototype")
+public class ToughJetResponse implements Response {
 
 
     private String carrier;
@@ -27,4 +26,8 @@ import org.springframework.stereotype.Component;
     private String outboundDateTime;//ISO_INSTANT  '2011-12-03T10:15:30Z'
     private String inboundDateTime;//ISO_INSTANT  '2011-12-03T10:15:30Z'
 
+    @Override
+    public void printResponse() {
+
+    }
 }

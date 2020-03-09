@@ -1,9 +1,6 @@
 package com.travix.medusa.busyflights.service;
 
-import com.travix.medusa.busyflights.domain.CrazyAirResponse;
-import com.travix.medusa.busyflights.domain.Request;
-import com.travix.medusa.busyflights.domain.BusyFlightsResponse;
-import com.travix.medusa.busyflights.domain.ToughJetResponse;
+import com.travix.medusa.busyflights.domain.*;
 import com.travix.medusa.busyflights.utility.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class BusyFlightServ {
+public class BusyFlightServ  {
 
 
     @Autowired
@@ -36,32 +33,48 @@ public class BusyFlightServ {
     @Value("${app.api.username}")
     private String username;
 
-    public List<BusyFlightsResponse> findByParam(Request request) {
+    @Override
+    public List<? extends Response> findAll() {
+        return null;
+    }
 
-        List<BusyFlightsResponse> busyFlightsEntities=new ArrayList<>();
-        List<ToughJetResponse> toughJetResponses= findToughByParam(request);
-        List<CrazyAirResponse> crazyAirResponses= findCrazyByParam(request);
+    @Override
+    public List<Response> findByParam(Request request) {
 
-        for(ToughJetResponse entity: toughJetResponses){
+        List<Response> busyFlightsEntities = new ArrayList<>();
+        List<ToughJetResponse> toughJetResponses = findToughByParam(request);
+        List<CrazyAirResponse> crazyAirResponses = findCrazyByParam(request);
+
+        for (ToughJetResponse entity : toughJetResponses) {
             busyFlightsEntities.add(Mapper.mapToughToBusy(entity));
         }
-        for(CrazyAirResponse entity1: crazyAirResponses){
+        for (CrazyAirResponse entity1 : crazyAirResponses) {
             busyFlightsEntities.add(Mapper.mapCrazyToBusy(entity1));
         }
-        //sort
 
-        busyFlightsEntities.sort(new Comparator<BusyFlightsResponse>() {
-            @Override
-            public int compare(BusyFlightsResponse o1, BusyFlightsResponse o2) {
-                return (int) (o1.getFare()-o2.getFare());
-            }
+        busyFlightsEntities.sort((o1, o2) -> {
+            return (int) (((BusyFlightsResponse) o1).getFare() - ((BusyFlightsResponse) o1).getFare());
         });
 
         return busyFlightsEntities;
     }
 
+    @Override
+    public Response findById(int i) {
+        return null;
+    }
 
-   public List<ToughJetResponse> findToughByParam(Request request) {
+    @Override
+    public Response saveFlight(Response response) {
+        return null;
+    }
+
+    @Override
+    public void delete(int i) {
+
+    }
+
+    public List<ToughJetResponse> findToughByParam(Request request) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -81,12 +94,13 @@ public class BusyFlightServ {
                 builder.toUriString(),
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<List<ToughJetResponse>>(){});
+                new ParameterizedTypeReference<List<ToughJetResponse>>() {
+                });
 
         return responseEntity.getBody();
     }
 
-   public List<CrazyAirResponse> findCrazyByParam(Request request) {
+    public List<CrazyAirResponse> findCrazyByParam(Request request) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
@@ -106,7 +120,8 @@ public class BusyFlightServ {
                 builder.toUriString(),
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<List<CrazyAirResponse>>(){});
+                new ParameterizedTypeReference<List<CrazyAirResponse>>() {
+                });
 
         return responseEntity.getBody();
     }

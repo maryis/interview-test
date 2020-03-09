@@ -10,11 +10,10 @@ import org.springframework.stereotype.Component;
 @Setter
 @Getter
 @NoArgsConstructor
-@RequiredArgsConstructor
 
 @Component
 @Scope("prototype")
-public class CrazyAirResponse {
+public class CrazyAirResponse implements Response{
 
     private String airline;
     private double price;//for one passenger
@@ -23,4 +22,10 @@ public class CrazyAirResponse {
     private String destinationAirportCode;
     private String departureDate;//ISO_LOCAL_DATE_TIME  '2011-12-03T10:15:30'
     private String arrivalDate;//ISO_LOCAL_DATE_TIME
+
+    @Override
+    public void printResponse() {
+
+    }
+
 }
