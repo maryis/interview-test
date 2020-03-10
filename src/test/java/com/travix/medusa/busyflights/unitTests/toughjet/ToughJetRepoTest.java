@@ -1,6 +1,7 @@
 package com.travix.medusa.busyflights.unitTests.toughjet;
 
 import com.travix.medusa.busyflights.domain.Request;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.repository.ToughJetRepo;
 import org.junit.Assert;
@@ -40,7 +41,7 @@ public class ToughJetRepoTest {
     @Test
     public void testfindByParam() {
 
-        List<ToughJetResponse> list=new ArrayList<>();
+        List<Response> list=new ArrayList<>();
         list=repo.findByParam(request);
         Assert.assertEquals(10,list.size());
 //        list.stream().forEach(i-> System.out.println(i.getBasePrice()));
@@ -54,7 +55,7 @@ public class ToughJetRepoTest {
         response.setArrivalAirportName("FGH");
 
         repo.save(response);
-        List<ToughJetResponse> list=repo.findAll();
+        List<Response> list=repo.findAll();
 
         Assert.assertEquals(list.size(),11);
 
@@ -64,7 +65,7 @@ public class ToughJetRepoTest {
     public void testDelete(){
 
         repo.delete(1);
-        List<ToughJetResponse> list=repo.findAll();
+        List<Response> list=repo.findAll();
 
         Assert.assertEquals(10,list.size());
 

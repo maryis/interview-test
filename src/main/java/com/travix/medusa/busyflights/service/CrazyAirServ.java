@@ -18,23 +18,24 @@ public class CrazyAirServ implements FlightService {
     CrazyAirRepo repo;//comment static reason
 
     @Override
-    public List<CrazyAirResponse> findAll() {
+    public List<Response> findAll() {
         return repo.findAll();
     }
 
     @Override
-    public List<CrazyAirResponse> findByParam(Request request) {
-        List<CrazyAirResponse> resList = new ArrayList<>();
+    public List<Response> findByParam(Request request) {
+        List<Response> resList = new ArrayList<>();
         resList = repo.findByParam(request);
-        for (CrazyAirResponse entity : resList) {
-            entity.setPrice(entity.getPrice() * request.getNumberOfPassengers());
+        for (Response entity : resList) {
+            CrazyAirResponse crazyAirResponse= (CrazyAirResponse) entity;
+            crazyAirResponse.setPrice(crazyAirResponse.getPrice() * request.getNumberOfPassengers());
         }
         return resList;
 
     }
 
     @Override
-    public CrazyAirResponse findById(int i) {
+    public Response findById(int i) {
         return repo.findById(i);
     }
 
@@ -43,7 +44,7 @@ public class CrazyAirServ implements FlightService {
         return null;
     }
 
-    public CrazyAirResponse saveFlight(CrazyAirResponse response) {
+    public Response saveFlight(Response response) {
         return repo.save(response);
     }
 

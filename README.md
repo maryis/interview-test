@@ -1,100 +1,41 @@
-**Travix - Problem to be solved**
+## Project Design:
 
-**Background:**
+ A Rest API with following layers:
+	 - controller : includes 3 flight-company APIs
+	 - service: service layer by using interfaces and concrete classes
+	 - repository layer for two flight company with mock data
+	 - domain includes models. I changed them to super/sub classes to achieve a degree of loosely-coupling in project
+	 - exception: by using a global exception-handler, I managed exceptions in controller level
 
-BusyFlights is a flights search solution which aggregates flight results initially from 2 different suppliers (CrazyAir and ToughJet). A future iteration (not part of the test) may add more suppliers.
+## Other Parts:
 
+Tests
+	 - unit tests
+	 - integration test
 
-**What is required:**
+Authentication
+	 - basic authentication using spring security
+	 - it operates like a proxy design pattern 
 
-Use this GitHub repository as a base to implement the Busy Flights service that should produce an aggregated result 
-from both CrazyAir and ToughJet.
+API Documents 
+	- based on OpenAPI definition and saved as "openapi.yaml" in root project
 
-The result should be a JSON response which contains a list of flights ordered by fare which has the following attributes:
+## Next steps:
 
-**Busy Flights API**
+- separating project to 3 independent micro services, then using spring cloud projects if it needs to be extended in future:   
 
-**Request**
+    - a service discovery project like Eureka
+    - a central config center  
+    - a central log server  like zipkin
+    - have two or more instances of each microservice and using a load balancer like netflix robin for decreasing latency and increasing availability  
 
-| Name | Description |
-| ------ | ------ |
-| origin | 3 letter IATA code(eg. LHR, AMS) |
-| destination | 3 letter IATA code(eg. LHR, AMS) |
-| departureDate | ISO_LOCAL_DATE format |
-| returnDate | ISO_LOCAL_DATE format |
-| numberOfPassengers | Maximum 4 passengers |
+  
+- to support CI/CD better, having:  
 
-**Response**
+    - a docker file for each project  
+    - a jenkins file for each project 
 
-| Name | Description |
-| ------ | ------ |
-| airline | Name of Airline |
-| supplier | Eg: CrazyAir or ToughJet |
-| fare | Total price rounded to 2 decimals |
-| departureAirportCode | 3 letter IATA code(eg. LHR, AMS) |
-| destinationAirportCode | 3 letter IATA code(eg. LHR, AMS) |
-| departureDate | ISO_DATE_TIME format |
-| arrivalDate | ISO_DATE_TIME format |
-
-The service should connect to the both the suppliers using HTTP.
-
-**CrazyAir API**
-
-**Request**
-
-| Name | Description |
-| ------ | ------ |
-| origin | 3 letter IATA code(eg. LHR, AMS) |
-| destination | 3 letter IATA code(eg. LHR, AMS) |
-| departureDate | ISO_LOCAL_DATE format |
-| returnDate | ISO_LOCAL_DATE format |
-| passengerCount | Number of passengers |
-
-**Response**
-
-
-| Name | Description |
-| ------ | ------ |
-| airline | Name of the airline |
-| price | Total price |
-| cabinclass | E for Economy and B for Business |
-| departureAirportCode | Eg: LHR |
-| destinationAirportCode | Eg: LHR |
-| departureDate | ISO_LOCAL_DATE_TIME format |
-| arrivalDate | ISO_LOCAL_DATE_TIME format |
-
-**ToughJet API**
-
-**Request**
-
-| Name | Description |
-| ------ | ------ |
-| from | 3 letter IATA code(eg. LHR, AMS) |
-| to | 3 letter IATA code(eg. LHR, AMS) |
-| outboundDate |ISO_LOCAL_DATE format |
-| inboundDate | ISO_LOCAL_DATE format |
-| numberOfAdults | Number of passengers |
-
-**Response**
-
-| Name | Description |
-| ------ | ------ |
-| carrier | Name of the Airline |
-| basePrice | Price without tax(doesn't include discount) |
-| tax | Tax which needs to be charged along with the price |
-| discount | Discount which needs to be applied on the price(in percentage) |
-| departureAirportName | 3 letter IATA code(eg. LHR, AMS) |
-| arrivalAirportName | 3 letter IATA code(eg. LHR, AMS) |
-| outboundDateTime | ISO_INSTANT format |
-| inboundDateTime | ISO_INSTANT format |
-
-**What you need to provide:**
-
-- A solution that meets the above requirements.
-- The implementation should be made as close to 'production ready' as possible within the time constraints.
-
-It is fine to change any of the supplied application code, if you choose to do so please add comments to indicate what has changed and why.
-
-**Note**
-
-Please clone this project then create your own repository from it. Do not fork/branch this project when creating your solution as it will be visible to other applicants.
+ (I am not proficient in CI/CD tools, but I love to engage in it in real projects)  
+  
+  - using JWT instead of basic Authentication  spring security using JWT instead of basic Authentication  
+ 

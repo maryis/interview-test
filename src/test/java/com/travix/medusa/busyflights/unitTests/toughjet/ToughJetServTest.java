@@ -1,6 +1,7 @@
 package com.travix.medusa.busyflights.unitTests.toughjet;
 
 import com.travix.medusa.busyflights.domain.Request;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.repository.ToughJetRepo;
 import com.travix.medusa.busyflights.service.ToughJetServ;
@@ -33,7 +34,7 @@ public class ToughJetServTest {
     @Autowired
     Request request;
 
-    List<ToughJetResponse> list;
+    List<Response> list;
     int num;
 
     @Before
@@ -62,11 +63,13 @@ public class ToughJetServTest {
     public void testfindParam(){
 
         Mockito.when(toughJetRepo.findByParam(any())).thenReturn(list);
-        List<ToughJetResponse> result= toughJetServ.findByParam(request);
+        List<Response> result= toughJetServ.findByParam(request);
 
         Assert.assertEquals(1,result.size());
-        Assert.assertEquals(list.get(0).getBasePrice(), result.get(0).getBasePrice(),0);
-        Assert.assertEquals("not equal arrival",list.get(0).getArrivalAirportName(), result.get(0).getArrivalAirportName());
+        ToughJetResponse toughJetResponse1= (ToughJetResponse) list.get(0);
+        ToughJetResponse toughJetResponse2= (ToughJetResponse) result.get(0);
+        Assert.assertEquals(toughJetResponse1.getBasePrice(), toughJetResponse2.getBasePrice(),0);
+        Assert.assertEquals("not equal arrival",toughJetResponse1.getArrivalAirportName(), toughJetResponse2.getArrivalAirportName());
 //
 //        for (int i=0;i<list.size();i++){
 //            System.out.println("list:"+ list.get(i).getArrivalAirportName()+":"+list.get(i).getCarrier());

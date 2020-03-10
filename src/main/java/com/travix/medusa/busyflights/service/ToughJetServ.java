@@ -16,25 +16,26 @@ public class ToughJetServ implements FlightService {
     @Autowired
     ToughJetRepo repo;//comment static reason
 
-    public List<ToughJetResponse> findAll() {
+    public List<Response> findAll() {
 
         return repo.findAll();
     }
 
-    public List<ToughJetResponse> findByParam(Request request) {
-        List<ToughJetResponse> resList=new ArrayList<>();
+    public List<Response> findByParam(Request request) {
+        List<Response> resList=new ArrayList<>();
         resList= repo.findByParam(request);
-        for(ToughJetResponse entity:resList){
+        for(Response entity:resList){
 
-            entity.setBasePrice(request.getNumberOfPassengers()*entity.getBasePrice());
-            entity.setDiscount(request.getNumberOfPassengers()*entity.getDiscount());
-            entity.setTax(request.getNumberOfPassengers()*entity.getTax());
+            ToughJetResponse toughJetResponse= (ToughJetResponse) entity;
+            toughJetResponse.setBasePrice(request.getNumberOfPassengers()*toughJetResponse.getBasePrice());
+            toughJetResponse.setDiscount(request.getNumberOfPassengers()*toughJetResponse.getDiscount());
+            toughJetResponse.setTax(request.getNumberOfPassengers()*toughJetResponse.getTax());
         }
 
         return resList;
     }
 
-    public ToughJetResponse findById(int i) {
+    public Response findById(int i) {
         return repo.findById(i);
     }
 
@@ -43,7 +44,7 @@ public class ToughJetServ implements FlightService {
         return null;
     }
 
-    public ToughJetResponse saveFlight(ToughJetResponse response) {
+    public Response saveFlight(Response response) {
         return repo.save(response);
     }
 

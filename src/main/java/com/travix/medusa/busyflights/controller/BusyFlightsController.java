@@ -22,13 +22,7 @@ public class BusyFlightsController {
     @Autowired
     BusyFlightServ service;
 
-    @GetMapping("/all")
-    public List<BusyFlightsResponse> getAllFlights() {
-
-        return null;
-    }
-
-    @GetMapping(path = "/flight",produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/flight")
     public List<BusyFlightsResponse> getFlights(@RequestParam String origin, @RequestParam String destination
             , @RequestParam String departureDate, @RequestParam String returnDate
             , @RequestParam int numberOfPassengers) throws Exception {
@@ -40,6 +34,7 @@ public class BusyFlightsController {
                 List<BusyFlightsResponse> result=service.findByParam(request);
                 if(result.size()==0)
                     throw new NoDataException("No data found");
+                return result;
             }
         } catch (InputIncorrectException e) {
             throw  e;//to be handled by global handler

@@ -2,6 +2,7 @@ package com.travix.medusa.busyflights.unitTests.crazyair;
 
 import com.travix.medusa.busyflights.domain.CrazyAirResponse;
 import com.travix.medusa.busyflights.domain.Request;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.repository.CrazyAirRepo;
 import com.travix.medusa.busyflights.repository.ToughJetRepo;
@@ -36,7 +37,7 @@ public class CrazyAirServTest {
     @Autowired
     Request request;
 
-    List<CrazyAirResponse> list;
+    List<Response> list;
     int num;
 
     @Before
@@ -64,10 +65,14 @@ public class CrazyAirServTest {
     public void testFindParam(){
 
         Mockito.when(crazyAirRepo.findByParam(any())).thenReturn(list);
-        List<CrazyAirResponse> result= crazyAirServ.findByParam(request);
+        List<Response> result= crazyAirServ.findByParam(request);
+
+
+        CrazyAirResponse crazyAirResponse1= (CrazyAirResponse) list.get(0);
+        CrazyAirResponse crazyAirResponse2= (CrazyAirResponse) result.get(0);
 
         Assert.assertEquals(1,result.size());
-        Assert.assertEquals(list.get(0).getPrice(), result.get(0).getPrice(),0);
+        Assert.assertEquals(crazyAirResponse1.getPrice(), crazyAirResponse2.getPrice(),0);
 
 
 

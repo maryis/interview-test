@@ -2,6 +2,7 @@ package com.travix.medusa.busyflights.unitTests.crazyair;
 
 import com.travix.medusa.busyflights.domain.CrazyAirResponse;
 import com.travix.medusa.busyflights.domain.Request;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.repository.CrazyAirRepo;
 import com.travix.medusa.busyflights.repository.ToughJetRepo;
@@ -41,7 +42,7 @@ public class CrazyAirRepoTest {
     @Test
     public void testFindByParam() {
 
-        List<CrazyAirResponse> list=new ArrayList<>();
+        List<Response> list=new ArrayList<>();
         list=repo.findByParam(request);
         Assert.assertEquals(0,list.size());
 

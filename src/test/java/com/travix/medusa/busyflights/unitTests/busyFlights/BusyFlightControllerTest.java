@@ -51,6 +51,9 @@ public class BusyFlightControllerTest {
 
     @Before
     public void initialize() {
+
+        System.out.println("make sure the main app is up");
+
         list = new ArrayList<>();
         BusyFlightsResponse entity = new BusyFlightsResponse();
         entity.setFare(200.9);

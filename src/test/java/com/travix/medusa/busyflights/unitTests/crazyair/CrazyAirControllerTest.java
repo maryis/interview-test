@@ -3,6 +3,7 @@ package com.travix.medusa.busyflights.unitTests.crazyair;
 import com.travix.medusa.busyflights.controller.CrazyAirController;
 import com.travix.medusa.busyflights.controller.ToughJetController;
 import com.travix.medusa.busyflights.domain.CrazyAirResponse;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.service.CrazyAirServ;
 import com.travix.medusa.busyflights.service.ToughJetServ;
@@ -49,7 +50,7 @@ public class CrazyAirControllerTest {
     @MockBean
     CrazyAirServ crazyAirServ;
 
-    List<CrazyAirResponse> list;
+    List<Response> list;
     int num;
 
     @Before

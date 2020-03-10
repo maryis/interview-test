@@ -2,12 +2,15 @@ package com.travix.medusa.busyflights.controller;
 
 import com.travix.medusa.busyflights.domain.CrazyAirResponse;
 import com.travix.medusa.busyflights.domain.Request;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.exception.InputIncorrectException;
+import com.travix.medusa.busyflights.exception.NoDataException;
 import com.travix.medusa.busyflights.service.CrazyAirServ;
 import com.travix.medusa.busyflights.utility.InputChecking;
 import com.travix.medusa.busyflights.utility.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -22,34 +25,34 @@ public class CrazyAirController {
     CrazyAirServ service;
 
     @GetMapping("/flights")
-    public List<CrazyAirResponse> getAllFlights(){
+    public List<Response> getAllFlights(){
 
         return service.findAll();
     }
 
 
     @GetMapping("/flights/{id}")
-    public CrazyAirResponse getFlightById(@PathVariable int id) {
+    public Response getFlightById(@PathVariable int id) {
 
         return service.findById(id);
     }
 
     @DeleteMapping("/flights/{id}")
-    public CrazyAirResponse deleteFlightById(@PathVariable int id) {
+    public Response deleteFlightById(@PathVariable int id) {
 
         service.delete(id);
         return null;
     }
 
     @PostMapping("/flights/")
-    public ToughJetResponse saveFlight(@RequestBody ToughJetResponse entity) {
+    public Response saveFlight(@RequestBody ToughJetResponse entity) {
 
         service.save(entity);
-        return null;
+        return entity;
     }
 
     @GetMapping("/flight")
-    public List<CrazyAirResponse> getFlights(@RequestParam String origin, @RequestParam String destination
+    public List<Response> getFlights(@RequestParam String origin, @RequestParam String destination
             , @RequestParam String departureDate, @RequestParam String returnDate
             , @RequestParam int passengerCount) throws Exception {
 
@@ -57,7 +60,9 @@ public class CrazyAirController {
 
         try {
             if(InputChecking.isRequestValid(request)) {
-                return service.findByParam(request);
+                List<Response> list=service.findByParam(request);
+
+                return list;
             }
         } catch (InputIncorrectException e) {
             throw  e;//to be handled by global handler

@@ -1,6 +1,7 @@
 package com.travix.medusa.busyflights.repository;
 
 import com.travix.medusa.busyflights.domain.Request;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.utility.*;
 import org.springframework.stereotype.Repository;
@@ -10,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ToughJetRepo implements ToughJetRepoInt {
+public class ToughJetRepo implements FlightRepo {
 
-    static List<ToughJetResponse> list=new ArrayList<>();
+    static List<Response> list=new ArrayList<>();
     static {
 
         for(int i=0;i<10;i++)
@@ -21,39 +22,40 @@ public class ToughJetRepo implements ToughJetRepoInt {
     }
 
     @Override
-    public List<ToughJetResponse> findAll(){
+    public List<Response> findAll(){
         return list;
     }
 
     @Override
-    public ToughJetResponse findById(int i){
+    public Response findById(int i){
         return list.get(i);
     }
 
     @Override
-    public ToughJetResponse save(ToughJetResponse toughJetResponse){
+    public Response save(Response toughJetResponse){
         list.add(toughJetResponse);
         return toughJetResponse;
     }
 
     @Override
-    public List<ToughJetResponse> findByParam(Request request) {
+    public List<Response> findByParam(Request request) {
 
-        List<ToughJetResponse> res=new ArrayList<>();
+        List<Response> res=new ArrayList<>();
 
         LocalDate reqInTime=TimeUtiltiy.getDate(request.getReturnDate());
         LocalDate reqOutTime=TimeUtiltiy.getDate(request.getDepartureDate());
 
-        for(ToughJetResponse entity:list){
-            LocalDate inTime=TimeUtiltiy.getDate(entity.getInboundDateTime());
-            LocalDate outTime=TimeUtiltiy.getDate(entity.getOutboundDateTime());
+        for(Response entity:list){
+            ToughJetResponse toughJetResponse= (ToughJetResponse) entity;
+            LocalDate inTime=TimeUtiltiy.getDate(toughJetResponse.getInboundDateTime());
+            LocalDate outTime=TimeUtiltiy.getDate(toughJetResponse.getOutboundDateTime());
 
 
             if(reqInTime.compareTo(inTime)==0 && reqOutTime.compareTo(outTime)==0)
 
-                if(entity.getDepartureAirportName().equals(request.getOrigin())&&
-                        entity.getArrivalAirportName().equals(request.getDestination()))
-                    res.add(entity);
+                if(toughJetResponse.getDepartureAirportName().equals(request.getOrigin())&&
+                        toughJetResponse.getArrivalAirportName().equals(request.getDestination()))
+                    res.add(toughJetResponse);
         }
 
         return res;

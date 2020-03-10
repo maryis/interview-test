@@ -1,6 +1,7 @@
 package com.travix.medusa.busyflights.unitTests.toughjet;
 
 import com.travix.medusa.busyflights.controller.ToughJetController;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.service.ToughJetServ;
 import org.junit.Before;
@@ -46,7 +47,7 @@ public class ToughJetControllerTest {
     @MockBean
     ToughJetServ toughJetServ;
 
-    List<ToughJetResponse> list;
+    List<Response> list;
     int num;
 
     @Before

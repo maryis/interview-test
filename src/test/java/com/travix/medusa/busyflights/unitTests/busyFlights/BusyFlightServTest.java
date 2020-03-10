@@ -1,10 +1,7 @@
 package com.travix.medusa.busyflights.unitTests.busyFlights;
 
 import com.travix.medusa.busyflights.BusyFlightsApplication;
-import com.travix.medusa.busyflights.domain.BusyFlightsResponse;
-import com.travix.medusa.busyflights.domain.CrazyAirResponse;
-import com.travix.medusa.busyflights.domain.Request;
-import com.travix.medusa.busyflights.domain.ToughJetResponse;
+import com.travix.medusa.busyflights.domain.*;
 import com.travix.medusa.busyflights.service.BusyFlightServ;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,6 +32,8 @@ public class BusyFlightServTest {
     @Before
     public void initialize() {
 
+
+        System.out.println("make sure the main app is up");
 
         request.setNumberOfPassengers(3);
         request.setDepartureDate("2019-03-04");

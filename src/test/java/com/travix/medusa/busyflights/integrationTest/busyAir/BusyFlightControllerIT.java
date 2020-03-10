@@ -46,7 +46,7 @@ public class BusyFlightControllerIT {
                             .with(httpBasic(username, password)))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$", hasSize(20)))
-                    .andExpect(jsonPath("$[0].carrier", is("Tough")));
+                    .andExpect(jsonPath("$[0].supplier", is("CrazyAir")));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,6 +83,22 @@ public class BusyFlightControllerIT {
                             .param("numberOfPassengers", "3")
                             .with(httpBasic(username, password)))
                     .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testGetEmptyList() {
+        try {
+            mockMvc.perform(
+                    get("/busy-flights-management/flight")
+                            .param("origin", "NOT")//not exist
+                            .param("destination", "DA1")
+                            .param("returnDate", "2019-03-05")
+                            .param("departureDate", "2019-03-04")
+                            .param("numberOfPassengers", "3")
+                            .with(httpBasic(username, password)))
+                    .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
         } catch (Exception e) {
             e.printStackTrace();
         }

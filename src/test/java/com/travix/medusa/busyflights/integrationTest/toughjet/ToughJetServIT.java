@@ -1,6 +1,7 @@
 package com.travix.medusa.busyflights.integrationTest.toughjet;
 
 import com.travix.medusa.busyflights.domain.Request;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.service.ToughJetServ;
 import org.junit.Assert;
@@ -39,7 +40,7 @@ public class ToughJetServIT {
     @Test
     public void testFindParam(){
 
-        List<ToughJetResponse> result= toughJetServ.findByParam(request);
+        List<Response> result= toughJetServ.findByParam(request);
 
         Assert.assertEquals(10,result.size());
 

@@ -2,6 +2,7 @@ package com.travix.medusa.busyflights.integrationTest.crazyair;
 
 import com.travix.medusa.busyflights.domain.CrazyAirResponse;
 import com.travix.medusa.busyflights.domain.Request;
+import com.travix.medusa.busyflights.domain.Response;
 import com.travix.medusa.busyflights.domain.ToughJetResponse;
 import com.travix.medusa.busyflights.service.CrazyAirServ;
 import com.travix.medusa.busyflights.service.ToughJetServ;
@@ -41,7 +42,7 @@ public class CrazyJetServIT {
     @Test
     public void testFindParam(){
 
-        List<CrazyAirResponse> result= crazyAirServ.findByParam(request);
+        List<Response> result= crazyAirServ.findByParam(request);
 
         Assert.assertEquals(10,result.size());
 
